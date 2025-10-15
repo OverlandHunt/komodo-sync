@@ -1,2 +1,4 @@
---label 
-  proxy.aliases=taxhacker
+services:
+  web:  # Check TaxHacker's docker-compose.yml for the actual service name
+    labels:
+      - "proxy.aliases=taxhacker"
