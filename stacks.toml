@@ -5,9 +5,21 @@ server = "blood-moon"
 project_name = "taxhacker"
 repo = "vas3k/TaxHacker/"  # Points to THEIR repo
 file_paths = ["docker-compose.yml"]
-config_files = [
-  { path = "docker-compose.override.yaml" }  # This file is in YOUR repo
+#config_files = [
+#  { path = "docker-compose.override.yaml" }  # This file is in YOUR repo
+#]
+
+# Add this pre-deploy script to create the override file
+[stack.config.pre_deploy]
+path = "bash"
+args = [
+  "-c",
+  "echo 'services:\n  web:\n    labels:\n      - \"proxy.aliases=taxhacker\"' > docker-compose.override.yaml"
 ]
+
+# Then add it to file_paths so Docker Compose uses it
+file_paths = ["docker-compose.yml", "docker-compose.override.yaml"]
+
 environment = """
 NODE_ENV=production
 SELF_HOSTED_MODE=true
