@@ -1,1 +1,20 @@
 ## Add resources to get started
+[[stack]]
+name = "taxhacker"
+[stack.config]
+server = "blood-moon"
+project_name = "taxhacker"
+repo = "vas3k/TaxHacker/"  # Points to THEIR repo
+file_paths = ["docker-compose.yml"]
+config_files = [
+  { path = "docker-compose.override.yaml" }  # This file is in YOUR repo
+]
+environment = """
+NODE_ENV=production
+SELF_HOSTED_MODE=true
+UPLOAD_PATH=/app/data/uploads
+DATABASE_URL=postgresql://postgres:postgres@postgres:5432/taxhacker
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=postgres
+POSTGRES_DB=taxhacker
+"""
